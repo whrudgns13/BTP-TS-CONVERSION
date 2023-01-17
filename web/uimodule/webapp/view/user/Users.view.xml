@@ -1,0 +1,74 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="com.myorg.myUI5App.controller.user.Users" xmlns="sap.m" xmlns:f="sap.f" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+    <f:FlexibleColumnLayout id="fcl" layout="OneColumn">
+        <f:beginColumnPages>
+            <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+                <!-- DynamicPage Title -->
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="Users ({users>/totalResults})" />
+                        </f:heading>
+                        <f:actions>
+                            <Button text="Create" press="onOpenDialog" enabled="{permission>/create}">
+                                <customData>
+                                    <core:CustomData key="CreateEditUserDialog" value="Create"/>
+                                </customData>
+                            </Button>
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <Table 
+                        id="usersTable" 
+                        items="{users>/resources}"
+                        itemPress="onUserItemPress"
+                        >
+                        <columns>
+                            <Column>
+                                <Text text="User_ID" />
+                            </Column>
+                            <Column>
+                                <Text text="User_Name" />
+                            </Column>
+                            <Column>
+                                <Text text="User_Email" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation" >
+                                <cells>
+                                    <Text text="{users>id}" />
+                                    <Text text="{users>name/familyName} {users>name/givenName}"/>
+                                    <Text text="{users>emails/0/value}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </f:content>
+            </f:DynamicPage>
+        </f:beginColumnPages>
+        <f:midColumnPages>
+            <f:DynamicPage>
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="{user>/id}" />
+                        </f:heading>
+                        <f:actions>
+                            <Button text="Edit" type="Emphasized" press="onOpenDialog" enabled="{permission>/update}">
+                                <customData>
+                                    <core:CustomData key="CreateEditUserDialog" value="Edit"/>
+                                </customData>
+                            </Button>
+                            <Button text="Delete" type="Emphasized" press="deleteUser" enabled="{permission>/delete}"/>
+                            <Button press="onFCLOneColumn" type="Emphasized" icon="sap-icon://decline" />
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <core:Fragment fragmentName="com.myorg.myUI5App.view.user.UserDetail"  type="XML" />
+                </f:content>
+            </f:DynamicPage>
+        </f:midColumnPages>
+    </f:FlexibleColumnLayout>
+</mvc:View>

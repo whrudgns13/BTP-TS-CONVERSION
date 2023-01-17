@@ -1,0 +1,116 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="com.myorg.myUI5App.controller.role.Roles" xmlns="sap.m" xmlns:f="sap.f" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+    <f:FlexibleColumnLayout id="fcl" layout="OneColumn">
+        <f:beginColumnPages>
+            <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="Roles ({= ${roles>/}.length})" />
+                        </f:heading>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <Table 
+                        id="rolesTable"
+                        class="sapFDynamicPageAlignContent sapUiSmallMarginBottom"
+                        growing="true"                        
+                        itemPress="onRoleItemPress"
+                        items="{
+                            path : 'roles>/',
+                            sorter : {
+                                path : 'appName'
+                            }
+                        }"
+                        >
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <ToolbarSpacer />
+                                <ComboBox id="rolesSearchCombo" selectedKey="appName">
+                                    <items>
+                                        <core:Item text="Role Name" key="appName"/>
+                                        <core:Item text="Application ID" key="roleTemplateAppId"/>
+                                        <core:Item text="Role Template" key="roleTemplateName"/>
+                                        <core:Item text="Role TemplateName" key="name"/>
+                                    </items>
+                                </ComboBox>
+                                <SearchField search="onSearch" width="17.5rem" />
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column mergeDuplicates="true">
+                                <Text text="Role Name" />
+                            </Column>
+                            <Column mergeDuplicates="true">
+                                <Text text="Application ID" />
+                            </Column>
+                            <Column>
+                                <Text text="Role Template" />
+                            </Column>
+                            <Column>
+                                <Text text="Role TemplateName" />
+                            </Column>
+                            <Column>
+                                <Text text="Description" />
+                            </Column>                            
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Active">
+                                <cells>
+                                    <Text text="{roles>appName}" />
+                                    <Text text="{roles>roleTemplateAppId}" />
+                                    <Text text="{roles>roleTemplateName}" />
+                                    <Text text="{roles>name}" />
+                                    <Text text="{roles>description}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </f:content>          
+            </f:DynamicPage>
+        </f:beginColumnPages>
+        <f:midColumnPages>
+            <f:DynamicPage>
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="{role>/appName}" />
+                        </f:heading>
+                        <f:actions>
+                            <!-- <Button text="Create" press="onOpenDialog">
+                                <customData>
+                                    <core:CustomData key="CreateEditRoleDialog" value="Create"/>
+                                </customData>
+                            </Button> -->
+                             <Button press="onFCLOneColumn" type="Emphasized" icon="sap-icon://decline" />
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <Table
+                        headerText="범위 ({= ${role>/scopes}.length})" 
+                        class="sapFDynamicPageAlignContent"
+                        itemPress="onRoleItemPress"
+                        items="{role>/scopes}"
+                        >
+                        <columns>
+                            <Column>
+                                <Text text="Name" />
+                            </Column>
+                            <Column>
+                                <Text text="Description" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{role>name}" />
+                                    <Text text="{role>description}" />                                    
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </f:content>          
+            </f:DynamicPage>
+        </f:midColumnPages>
+    </f:FlexibleColumnLayout>
+</mvc:View>

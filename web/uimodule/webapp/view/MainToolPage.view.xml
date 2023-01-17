@@ -1,0 +1,29 @@
+<mvc:View controllerName="com.myorg.myUI5App.controller.MainToolPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    height="100%">
+    <tnt:ToolPage id="toolPage">
+        <tnt:sideContent>
+            <tnt:SideNavigation id="sideNavigation" itemSelect="onItemSelect">
+                <tnt:NavigationList>
+                    <tnt:NavigationListItem text="Main" icon="sap-icon://home" key="MainOverview"/>
+                    <tnt:NavigationListItem text="User" icon="sap-icon://employee">
+                        <tnt:NavigationListItem text="Current User" key="CurrentUser"/>
+                        <tnt:NavigationListItem text="Users" key="Users"/>
+                    </tnt:NavigationListItem>
+                    <tnt:NavigationListItem text="Role" icon="sap-icon://role">
+                         <tnt:NavigationListItem text="Roles" key="Roles"/>
+                         <tnt:NavigationListItem text="RoleCollections" key="RoleCollections"/>
+                    </tnt:NavigationListItem>
+                    <tnt:NavigationListItem text="Security" icon="sap-icon://shield">
+                        <tnt:NavigationListItem text="Settings" key="Settings"/>
+                    </tnt:NavigationListItem>
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="app"/>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

@@ -1,0 +1,120 @@
+{
+	"_version": "1.12.0",
+
+	"sap.app": {
+		"id": "com.myorg.userInformation",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.myorg.userInformation.view.Main",
+			"type": "JS",
+			"async": true,
+			"id" : "com.myorg.userInformation"
+		},
+
+		"dependencies": {
+			"minUI5Version": "1.108.4",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {},
+				"sap.m": {},
+				"sap.ui.table" : {}
+			}
+		},
+
+		"handleValidation": true,
+
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.myorg.userInformation.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [
+			  {
+				"uri": "css/style.css"
+			  }
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "JS",
+				"viewPath": "com.myorg.userInformation.view",
+				"controlAggregation" : "pages",
+				"controlId" : "app",
+				"async" : true
+			},
+			"routes": [
+				{
+					"pattern": "user",
+					"name": "user",
+					"target": [
+						"user"
+					]
+				},
+				{
+					"pattern" : "list/{layout}/:userId:",
+					"name" : "list",
+					"target" : [
+						"userList",
+						"userListDetail"
+					]
+				}
+			],
+			"targets": {
+				"user": {
+					"viewPath" : "com.myorg.userInformation.view.user",
+					"viewId": "UserOverView",
+					"viewName": "UserOverView"
+				},
+				"userList" : {
+					"viewPath" : "com.myorg.userInformation.view.user",
+					"controlId" : "fcl",
+					"controlAggregation" : "beginColumnPages",
+					"parent" : "user",
+					"viewId": "UserList",
+					"viewName": "UserList"
+				},
+				"userListDetail" : {
+					"viewPath" : "com.myorg.userInformation.view.user",
+					"controlId" : "fcl",
+					"controlAggregation" : "midColumnPages",
+					"parent" : "user",
+					"viewId": "UserListDetail",
+					"viewName": "UserListDetail"
+				}
+			
+			}
+		}
+	}
+}

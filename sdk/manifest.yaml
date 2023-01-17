@@ -1,0 +1,12 @@
+applications:
+  - name: sdk
+    path: .
+    buildpacks:
+      - nodejs_buildpack
+    memory: 256M
+    command: npm run start:prod
+    routes:
+      - route : 69c1c9b6trial-sdk.cfapps.us10.hana.ondemand.com
+    services : 
+      - app-xsuaa-security
+      - my-destination

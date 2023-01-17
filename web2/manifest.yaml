@@ -1,0 +1,10 @@
+applications:
+#frontend ui5 app
+  - name: ui5
+    path: ./dist
+    routes:
+      - route: 69c1c9b6trial-ui5.cfapps.us10.hana.ondemand.com
+    memory: 128M
+    buildpack: staticfile_buildpack
+    services: 
+      - app-xsuaa-security

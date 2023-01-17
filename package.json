@@ -1,0 +1,26 @@
+{
+  "name": "btp-api-connect-SDK-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "initProject" : "npm install && npm run applicationXSUAAService && npm run apiaccessXSUAAService && npm run createDestinationService && cd approuter && npm install && cd .. && cd sdk && npm install && cd ..",
+    "deploy_web": "run-s build:ui && cd web && cf push",
+    "deploy_sdk": "cd sdk && npm run deploy",
+    "deploy_approuter": "cd approuter && cf push",
+    "createDestinationService" : "cf create-service destination lite my-destination && cf create-service-key my-destination my-destination-service-key",
+    "deploy_all" : "npm run deploy_web && npm run deploy_sdk && npm run deploy_approuter",
+    "apiaccessXSUAAService" : "cf create-service xsuaa apiaccess api-xsuaa-security -c security/apiaccess-xs-security.json",
+    "applicationXSUAAService" : "cf create-service xsuaa application app-xsuaa-security -c security/xs-security.json",
+    "build:ui": "run-s  build:uimodule",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:uimodule": "ui5 build --config=web/uimodule/ui5.yaml --clean-dest --dest web/uimodule/dist --include-task=generateManifestBundle"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ui5/cli": "^2.14.10",
+    "npm-run-all": "^4.1.5",
+    "ui5-middleware-livereload": "^0.6.0"
+  }
+}

@@ -1,0 +1,152 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="com.myorg.myUI5App.controller.role.RoleCollections" xmlns="sap.m" xmlns:f="sap.f" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+    <f:FlexibleColumnLayout id="fcl" layout="OneColumn">
+        <f:beginColumnPages>
+            <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="Role Collections ({= ${collections>/}.length})" />
+                        </f:heading>
+                        <f:actions>
+                            <Button text="Create" press="onOpenDialog" enabled="{permission>/create}">
+                                <customData>
+                                    <core:CustomData key="CreateEditRoleDialog" value="Create"/>
+                                </customData>
+                            </Button>
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <Table 
+                        id="collectionTable"
+                        class="sapFDynamicPageAlignContent sapUiSmallMarginBottom"
+                        itemPress="onCollectionsItemPress"
+                        items="{collections>/}"
+                        >
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <ToolbarSpacer />
+                                <SearchField search="onSearch" width="17.5rem" />
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column>
+                                <Text text="Name" />
+                            </Column>
+                            <Column>
+                                <Text text="Description" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation">
+                                <cells>
+                                    <Text text="{collections>name}" />
+                                    <Text text="{collections>description}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </f:content>          
+            </f:DynamicPage>
+        </f:beginColumnPages>
+        <f:midColumnPages>
+            <f:DynamicPage>
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="{collection>/name}" />
+                        </f:heading>
+                        <f:expandedContent>
+						    <Label text="{collection>/description}"/>
+					    </f:expandedContent>
+                        <f:actions>
+                            <Button text="Edit" type="Emphasized" press="onOpenDialog" enabled="{permission>/update}">
+                                <customData>
+                                    <core:CustomData key="CreateEditRoleDialog" value="Edit"/>
+                                </customData>
+                            </Button>
+                            <Button text="Delete" type="Emphasized" press="deleteRoleCollection" enabled="{permission>/delete}"/>
+                            <Button press="onFCLOneColumn" type="Emphasized" icon="sap-icon://decline" />
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <VBox>
+                        <Panel headerText="Role ({= ${collection>/roleReferences} ? ${collection>/roleReferences}.length : '0'})">
+                            <content>
+                                <Table id="roleTable" mode="{= ${permission>/delete} ? 'Delete' : 'None' }" items="{collection>/roleReferences}" delete="onDeleteRoleFromRoleCollection">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <ToolbarSpacer/>
+                                            <Button id="addRoleBtn" text="역할 추가" press="onOpenDialog" enabled="{permission>/update}">
+                                                <customData>
+                                                    <core:CustomData key="RolesDialog" value="addRole"/>
+                                                </customData>
+                                            </Button>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column>
+                                            <Text text="Name" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="Template" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="AppID" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{collection>name}"/>
+                                                <Text text="{collection>roleTemplateName}"/>
+                                                <Text text="{collection>roleTemplateAppId}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </content>
+                        </Panel>     
+                                    <Panel headerText="유저 ({= ${collection>/userReferences} ? ${collection>/userReferences}.length : '0'})" class="sapUiSmallMarginTop">
+                                        <content>
+                                            <Table items="{collection>/userReferences}" mode="{= ${permission>/delete} ? 'Delete' : 'None' }" delete="deleteCollectionUser">
+                                                <headerToolbar>
+                                                    <OverflowToolbar>
+                                                        <ToolbarSpacer/>
+                                                        <Button text="유저 추가" press="onOpenDialog"  enabled="{permission>/update}">
+                                                            <customData>
+                                                                <core:CustomData key="AddUserDialog" value="addUser"/>
+                                                            </customData>
+                                                        </Button>
+                                                    </OverflowToolbar>
+                                                </headerToolbar>
+                                                <columns>
+                                                    <Column>
+                                                        <Text text="User_ID" />
+                                                    </Column>
+                                                    <Column>
+                                                        <Text text="User_Name" />
+                                                    </Column>
+                                                    <Column>
+                                                        <Text text="User_Email" />
+                                                    </Column>
+                                                </columns>
+                                                <items>
+                                                    <ColumnListItem type="Active">
+                                                        <cells>
+                                                            <Text text="{collection>id}" />
+                                                            <Text text="{collection>username}"/>
+                                                            <Text text="{collection>email}" />
+                                                        </cells>
+                                                    </ColumnListItem>
+                                                </items>                    
+                                            </Table>
+                                        </content>
+                                    </Panel>
+                                </VBox>                    
+                </f:content>
+            </f:DynamicPage>
+        </f:midColumnPages>
+    </f:FlexibleColumnLayout>
+</mvc:View>

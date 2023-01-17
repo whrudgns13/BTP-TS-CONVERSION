@@ -1,0 +1,26 @@
+applications:
+#approuter
+  - name: approuter
+    path: .
+    routes:
+      - route : 69c1c9b6trial-approuter.cfapps.us10.hana.ondemand.com
+    memory: 128M
+    buildpacks:
+      - nodejs_buildpack
+    services: 
+      - app-xsuaa-security
+    env: 
+      SESSION_TIMEOUT: 40
+      destinations: >
+        [
+          {
+            "name" : "server",
+            "url":"https://69c1c9b6trial-sdk.cfapps.us10.hana.ondemand.com",          
+            "forwardAuthToken":true
+          },
+          {
+            "name" : "ui5app",
+            "url":"https://69c1c9b6trial-ui5.cfapps.us10.hana.ondemand.com"          
+          }
+        ]
+        
