@@ -10,6 +10,7 @@ import Table from "sap/m/Table";
 import Text from "sap/m/Text"
 import Title from "sap/m/Title";
 import ToolbarSpacer from "sap/m/ToolbarSpacer";
+import Event from "sap/ui/base/Event";
 import JSView from "sap/ui/core/mvc/JSView";
 import SimpleForm from "sap/ui/layout/form/SimpleForm";
 import ObjectPageDynamicHeaderTitle from "sap/uxap/ObjectPageDynamicHeaderTitle";
@@ -108,7 +109,13 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                             new Table(_self.createId("roleTable"),{
                                 headerToolbar : new OverflowToolbar({
                                     content : [
-                                        new SearchField({value : "", width : "10rem"}),
+                                        new SearchField({
+                                            value : "",
+                                            width : "15rem",
+                                            search : function(e : Event){
+                                                controller.onSearchRoleCollection(e);
+                                            }
+                                        }),
                                         new ToolbarSpacer(),
                                         new Button({text : "역활 컬렉션 지정"}),
                                         new Button({
