@@ -24,17 +24,17 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
     },
     createContent : function(controller : UserListDetailController){
         const _self = this as JSView;
-
+        
         const page = new ObjectPageLayout({
             headerTitle : new ObjectPageDynamicHeaderTitle({
                 expandedHeading : new HBox({
                     items : [
-                        new Title({text : "{ViewModel>/userName}",titleStyle:"H3"})
+                        new Title({text : "{ComponentModel>/user/userName}",titleStyle:"H3"})
                     ]
                 }),
                 snappedHeading : new HBox({
                     items : [
-                        new Title({text : "{ViewModel>/userName}",titleStyle:"H3"}),
+                        new Title({text : "{ComponentModel>/user/userName}",titleStyle:"H3"}),
                     ]
                 }),
                 actions : [
@@ -57,7 +57,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                     new Label({text : "마지막 로그온"}),
                     new Text({
                         text : {
-                            path : 'ViewModel>/lastLogonTime',
+                            path : 'ComponentModel>/user/lastLogonTime',
                             formatter : (value : string | number)=>{
                                 if(value){
                                     if(!isNaN(Number(value))) value = Number(value);
@@ -77,20 +77,20 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                             new SimpleForm({
                                 content : [
                                     new Label({text : "전자메일"}),
-                                    new Text({text : "{ViewModel>/emails/0/value}"}),
+                                    new Text({text : "{ComponentModel>/user/emails/0/value}"}),
                                     new Label({text : "생성됨"}),
                                     new Text({text : {
-                                        path : 'ViewModel>/meta/created',
+                                        path : 'ComponentModel>/user/meta/created',
                                         formatter : (value : string)=>{
                                             return controller.formatDate(value)
                                         }
                                     }}),
                                     new Label({text : "ID"}),
-                                    new Text({text : "{ViewModel>/id}"}),
+                                    new Text({text : "{ComponentModel>/user/id}"}),
                                     new Label({text : "마지막 업데이트"}),
                                     new Text({
                                         text : {
-                                            path : 'ViewModel>/passwordLastModified',
+                                            path : 'ComponentModel>/user/lastModified',
                                             formatter : (value : string)=>{
                                                 return controller.formatDate(value)
                                             }
@@ -133,12 +133,12 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                     })
                                 ],
                                 items : {
-                                    path : "ViewModel>/groups",
+                                    path : "ComponentModel>/user/groups",
                                     template : new ColumnListItem({
                                         type : "Navigation",
                                         cells : [
-                                            new Text({text : "{ViewModel>value}"}),
-                                            new Text({text : "{ViewModel>display}"}),
+                                            new Text({text : "{ComponentModel>value}"}),
+                                            new Text({text : "{ComponentModel>display}"}),
                                             new Button({icon : "sap-icon://delete"})
                                         ]
                                     })

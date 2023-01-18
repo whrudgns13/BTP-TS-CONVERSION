@@ -1,7 +1,7 @@
 import { LayoutType } from "sap/f/library";
 import Event from "sap/ui/base/Event";
 import BaseController from "../BaseController";
-import { routerArguments } from "./User";
+import { routerArguments } from "../../type/User";
 
 /**
  * @namespace com.myorg.userInformation.controller.user

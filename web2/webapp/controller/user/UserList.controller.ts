@@ -12,7 +12,7 @@ import BaseController from "../BaseController";
  */
 export default class UserList extends BaseController {
 
-	viewModel: JSONModel;
+	viewModel : JSONModel;
     
     onInit(){
         this.defaultSetting();
@@ -21,12 +21,13 @@ export default class UserList extends BaseController {
     async defaultSetting(){
         const users = await (await fetch("/app/users")).json();
         const view = this.getView();
+        this.getComponentModel().setProperty("/users",users);
         const viewModel = new JSONModel(Object.assign({
             searchCondition : {
                 userName : "",
                 email : "",
             }
-        },{users}));
+        }));
         view.setModel(viewModel,"ViewModel");
         this.viewModel = viewModel;
     }
@@ -49,9 +50,9 @@ export default class UserList extends BaseController {
         (table.getBinding("items") as JSONListBinding).filter(filter);
     }
     onOpenDetail(e : Event) {
-        const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ViewModel").getPath();
+        const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ComponentModel").getPath();
         this.navTo("list",{
-            userId :  this.viewModel.getProperty(path+"/id"),
+            userId : this.getComponentModel().getProperty(path+"/id"),
             layout : LayoutType.TwoColumnsMidExpanded
         });
        // this.setLayout("/users/layout",LayoutType.TwoColumnsMidExpanded)

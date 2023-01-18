@@ -11,8 +11,8 @@ import Title from "sap/m/Title";
 import VBox from "sap/m/VBox";
 import Event from "sap/ui/base/Event";
 import JSView from "sap/ui/core/mvc/JSView";
-// import FilterBar from "sap/ui/comp/filterbar/FilterBar";
-// import FilterItem from "sap/ui/comp/filterbar/FilterItem";
+import FilterBar from "sap/ui/comp/filterbar/FilterBar";
+import FilterItem from "sap/ui/comp/filterbar/FilterItem";
 import UserListController from "../../controller/user/UserList.controller";
 import Button from "sap/m/Button";
 
@@ -37,40 +37,39 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
             }),
             header : new DynamicPageHeader({
                 content : [
-                    // (function(){
-                    //     const filterbar = new FilterBar({
-                    //         useToolbar : false,
-                    //         filterItems : [
-                    //             new FilterItem({
-                    //                 name : "userName",
-                    //                 label : "이름",
-                    //                 control : new SearchField({
-                    //                     value : "{ViewModel>/searchCondition/userName}",
-                    //                     showSearchButton : false,
-                    //                     search : function(){
-                    //                         controller.onSearch();
-                    //                     }
-                    //                 })
-                    //             }),
-                    //             new FilterItem({
-                    //                 name : "email",
-                    //                 label : "이메일",
-                    //                 control : new SearchField({
-                    //                     value : "{ViewModel>/searchCondition/email}",
-                    //                     showSearchButton : false,
-                    //                     search : function(){
-                    //                         controller.onSearch();
-                    //                     }
-                    //                 })
-                    //             })
-                    //         ],
-                    //         search : function(e : Event){
-                    //             controller.onSearch();
-                    //         }
-                    //     });
-                    //     return filterbar;
-                    // }()),
-                    
+                    (function(){
+                        const filterbar = new FilterBar({
+                            useToolbar : false,
+                            filterItems : [
+                                new FilterItem({
+                                    name : "userName",
+                                    label : "이름",
+                                    control : new SearchField({
+                                        value : "{ViewModel>/searchCondition/userName}",
+                                        showSearchButton : false,
+                                        search : function(){
+                                            controller.onSearch();
+                                        }
+                                    })
+                                }),
+                                new FilterItem({
+                                    name : "email",
+                                    label : "이메일",
+                                    control : new SearchField({
+                                        value : "{ViewModel>/searchCondition/email}",
+                                        showSearchButton : false,
+                                        search : function(){
+                                            controller.onSearch();
+                                        }
+                                    })
+                                })
+                            ],
+                            search : function(e : Event){
+                                controller.onSearch();
+                            }
+                        });
+                        return filterbar;
+                    }()),
                 ]
             }),
             content : new Table(_self.createId("userTable"),{
@@ -95,20 +94,20 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
                     })
                 ],
                 items : {
-                    path : "ViewModel>/users/resources",
+                    path : "ComponentModel>/users/resources",
                     template : new ColumnListItem({
                         type : "Navigation",
                         press : function(e : Event){
                             controller.onOpenDetail(e);
                         },
                         cells : [
-                            new Text({text : "{ViewModel>name/familyName} {ViewModel>name/givenName}"}),
-                            new Text({text : "{ViewModel>name/familyName}"}),
-                            new Text({text : "{ViewModel>name/givenName}"}),
-                            new Text({text : "{ViewModel>emails/0/value}"}),
+                            new Text({text : "{ComponentModel>name/familyName} {ComponentModel>name/givenName}"}),
+                            new Text({text : "{ComponentModel>name/familyName}"}),
+                            new Text({text : "{ComponentModel>name/givenName}"}),
+                            new Text({text : "{ComponentModel>emails/0/value}"}),
                             new Text({
                                 text : {
-                                    path : 'ViewModel>meta/lastModified',
+                                    path : 'ComponentModel>meta/lastModified',
                                     formatter : (value : string)=>{
                                         return controller.formatDate(value)
                                     }
@@ -116,7 +115,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
                             }),
                             new Text({
                                 text : {
-                                    path : 'ViewModel>lastLogonTime',
+                                    path : 'ComponentModel>lastLogonTime',
                                     formatter : (value : string | number)=>{
                                         if(value){
                                             if(!isNaN(Number(value))) value = Number(value);

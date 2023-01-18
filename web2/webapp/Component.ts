@@ -25,6 +25,7 @@ export default class Component extends UIComponent {
 				layout : LayoutType.OneColumn
 			}
 		}));
+		this.setModel(new JSONModel(),"ComponentModel");
 		// create the views based on the url/hash
 		this.getRouter().initialize();
 	}

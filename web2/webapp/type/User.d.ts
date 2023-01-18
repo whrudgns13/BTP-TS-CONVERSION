@@ -1,4 +1,4 @@
-import { ScimUser } from "../../type/scim-user"
+import { ScimUser } from "./scim-user"
 
 export interface routerArguments { 
 	layout? : string,
