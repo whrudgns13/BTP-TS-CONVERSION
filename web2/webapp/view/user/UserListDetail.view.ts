@@ -91,7 +91,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                     new Label({text : "마지막 업데이트"}),
                                     new Text({
                                         text : {
-                                            path : 'ComponentModel>/user/lastModified',
+                                            path : 'ComponentModel>/user/meta/lastModified',
                                             formatter : (value : string)=>{
                                                 return controller.formatDate(value)
                                             }
@@ -117,7 +117,12 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                             }
                                         }),
                                         new ToolbarSpacer(),
-                                        new Button({text : "역활 컬렉션 지정"}),
+                                        new Button({
+                                            text : "역활 컬렉션 지정",
+                                            press : function(){
+                                                controller.onOpenCollectionDialog();
+                                            }
+                                        }),
                                         new Button({
                                             icon : "sap-icon://sort",
                                             press : function(){

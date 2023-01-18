@@ -7,11 +7,22 @@ import { routerArguments } from "../../type/User";
 import { ScimUser } from "webapp/type/scim-user";
 import Filter from "sap/ui/model/Filter";
 import JSONListBinding from "sap/ui/model/json/JSONListBinding";
+import TableSelectDialog from "sap/m/TableSelectDialog";
+import ColumnListItem from "sap/m/ColumnListItem";
+import Text from "sap/m/Text";
+import { RoleCollection } from "webapp/type";
+import { Group } from "webapp/type/group";
+import Column from "sap/m/Column";
 
+type RoleCollections =  RoleCollection & {
+    selected : boolean
+}
 /**
  * @namespace com.myorg.userInformation.controller.user
  */
 export default class UserListDetail extends BaseController {
+    _collectionDialog : TableSelectDialog;
+
     onInit(){
         this.getRouter().attachRoutePatternMatched(this.onRouteMatched,this);
     }
@@ -55,7 +66,49 @@ export default class UserListDetail extends BaseController {
         
         (table.getBinding("items") as JSONListBinding).filter(filter);
     }
+    async onOpenCollectionDialog(){
+        const componentModel = this.getComponentModel();
+        const collections = this.getComponentModel().getProperty("collections");
+        if(!collections){
+            let roleCollections : RoleCollections[] = await (await fetch("/app/role-collection")).json();
+            const groups : Group[] = componentModel.getProperty("/user/groups");
+            // groups.forEach(group=>{
+            //     if(group.value)
+            // })
+            roleCollections = roleCollections.filter(collection=>{
+                const group = groups.find(group=>group.value===collection.name);
+                if(group) return false;
+                return true;
+            })
+            componentModel.setProperty("/collections",roleCollections);
+        }
 
+        if(!this._collectionDialog){
+            this._collectionDialog = new TableSelectDialog({
+                title : "Role Collections {= ${ComponentModel>/collections}.length}",
+                multiSelect : true,
+                columns : [
+                    new Column({
+                        header : new Text({text : "Name"}),
+                    }),
+                    new Column({
+                        header : new Text({text : "Description"}),
+                    }),
+                ],
+                items : {
+                    path : "ComponentModel>/collections",
+                    template : new ColumnListItem({
+                        cells : [
+                            new Text({text : "{ComponentModel>name}"}),
+                            new Text({text : "{ComponentModel>description}"}),
+                        ]
+                    })
+                }
+            })
+            this.getView().addDependent(this._collectionDialog);
+        }
+        this._collectionDialog.open();
+    }
     onOpenSortDialog() {
         
     }
