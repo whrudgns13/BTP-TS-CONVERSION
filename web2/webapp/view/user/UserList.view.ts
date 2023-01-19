@@ -14,8 +14,6 @@ import JSView from "sap/ui/core/mvc/JSView";
 import FilterBar from "sap/ui/comp/filterbar/FilterBar";
 import FilterItem from "sap/ui/comp/filterbar/FilterItem";
 import UserListController from "../../controller/user/UserList.controller";
-import Button from "sap/m/Button";
-import ViewType from "sap/ui/core/mvc/ViewType";
 
 sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
     getControllerName : function(){

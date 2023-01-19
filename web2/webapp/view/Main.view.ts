@@ -5,14 +5,9 @@ import SideNavigation from "sap/tnt/SideNavigation";
 import NavigationList from "sap/tnt/NavigationList";
 import NavigationListItem from "sap/tnt/NavigationListItem";
 import App from "sap/m/App";
-import Page from "sap/m/Page";
-import Toolbar from "sap/m/Toolbar";
 import Button from "sap/m/Button";
 import Title from "sap/m/Title";
-import ShellBar from "sap/f/ShellBar";
-import OverflowToolbar from "sap/m/OverflowToolbar";
 import ToolHeader from "sap/tnt/ToolHeader";
-import Icon from "sap/ui/core/Icon";
 import Image from "sap/m/Image";
 
 sap.ui.jsview("com.myorg.userInformation.view.Main",{

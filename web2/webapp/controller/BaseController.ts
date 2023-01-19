@@ -1,5 +1,4 @@
 import Controller from "sap/ui/core/mvc/Controller";
-import UIComponent from "sap/ui/core/UIComponent";
 import AppComponent from "../Component";
 import Model from "sap/ui/model/Model";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
@@ -7,7 +6,6 @@ import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import Router from "sap/ui/core/routing/Router";
 import History from "sap/ui/core/routing/History";
 import JSONModel from "sap/ui/model/json/JSONModel";
-import { LayoutType } from "sap/f/library";
 import MessageBox from "sap/m/MessageBox";
 
 /**

@@ -1,13 +1,10 @@
 
 import { LayoutType } from "sap/f/library";
-import Dialog from "sap/m/Dialog";
 import Table from "sap/m/Table";
 import Event from "sap/ui/base/Event";
-import ViewType from "sap/ui/core/mvc/ViewType";
 import Filter from "sap/ui/model/Filter";
 import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 import JSONModel from "sap/ui/model/json/JSONModel";
-import BaseController from "../BaseController";
 import UserOverView from "./UserOverView.controller";
 
 /**
