@@ -6,11 +6,12 @@ import Filter from "sap/ui/model/Filter";
 import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import BaseController from "../BaseController";
+import UserOverView from "./UserOverView.controller";
 
 /**
  * @namespace com.myorg.userInformation.controller.user
  */
-export default class UserList extends BaseController {
+export default class UserList extends UserOverView {
 
 	viewModel : JSONModel;
     
@@ -19,9 +20,8 @@ export default class UserList extends BaseController {
     }
     
     async defaultSetting(){
-        const users = await (await fetch("/app/users")).json();
         const view = this.getView();
-        this.getComponentModel().setProperty("/users",users);
+        this.getUsers();
         const viewModel = new JSONModel(Object.assign({
             searchCondition : {
                 userName : "",

@@ -103,7 +103,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                     })
                 }),
                 new ObjectPageSection({
-                    title : "역활 컬렉션",
+                    title : "역활 컬렉션 ({= ${ComponentModel>/user/groups}.length})",
                     subSections : new ObjectPageSubSection({
                         blocks : [
                             new Table(_self.createId("roleTable"),{
@@ -126,7 +126,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                         new Button({
                                             icon : "sap-icon://sort",
                                             press : function(){
-                                                controller.onOpenSortDialog();
+                                                //controller.onOpenSortDialog();
                                             }}
                                         ),
                                         new Button({icon : "sap-icon://export"}),
@@ -141,7 +141,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                     }),
                                     new Column({
                                         hAlign : "End",
-                                        header : new Text({text : "액션"}),
+                                        header : new Text({text : "삭제"}),
                                     })
                                 ],
                                 items : {
@@ -151,7 +151,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                         cells : [
                                             new Text({text : "{ComponentModel>value}"}),
                                             new Text({text : "{ComponentModel>display}"}),
-                                            new Button({icon : "sap-icon://delete"})
+                                            new Button({icon : "sap-icon://delete",type : "Transparent"})
                                         ]
                                     })
                                 }
