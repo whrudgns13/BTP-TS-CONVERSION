@@ -26,6 +26,7 @@ export default class UserOverView extends BaseController {
 		componentModel.setProperty("/collections",roleCollections);
 		return roleCollections;
 	}
+
 	async getUsers(){
 		const response = await fetch("/app/users",{
 			headers : {
@@ -39,8 +40,8 @@ export default class UserOverView extends BaseController {
 
 		componentModel.setProperty("/csrfToken",token);
 		componentModel.setProperty("/users",user);
+	}
 
-    }
 	onRouterMatched(event : Event){
 		const oLayoutModel = this.getModel();
 		let sLayout = (event.getParameter("arguments") as routerArguments).layout;

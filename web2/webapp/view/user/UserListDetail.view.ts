@@ -151,7 +151,13 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                                         cells : [
                                             new Text({text : "{ComponentModel>value}"}),
                                             new Text({text : "{ComponentModel>display}"}),
-                                            new Button({icon : "sap-icon://delete",type : "Transparent"})
+                                            new Button({
+                                                icon : "sap-icon://delete",
+                                                type : "Transparent",
+                                                press : function(event : Event){
+                                                    controller.onDeleteUserRoleCollection(event)
+                                                }
+                                            })
                                         ]
                                     })
                                 }

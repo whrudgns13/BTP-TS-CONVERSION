@@ -15,18 +15,20 @@ import FilterBar from "sap/ui/comp/filterbar/FilterBar";
 import FilterItem from "sap/ui/comp/filterbar/FilterItem";
 import UserListController from "../../controller/user/UserList.controller";
 import Button from "sap/m/Button";
+import ViewType from "sap/ui/core/mvc/ViewType";
 
 sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
     getControllerName : function(){
         return "com.myorg.userInformation.controller.user.UserList";
     },
     createContent : function(controller : UserListController){
+       
         const _self = this as JSView;
         const page = new DynamicPage({
             title : new DynamicPageTitle({
                 expandedHeading : new HBox({
                     items : [
-                        new Title({text : "Master",titleStyle:"H3"})
+                        new Title({text : "Master",titleStyle:"H3"}),
                     ]
                 }),
                 snappedHeading : new VBox({
@@ -119,7 +121,7 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
                                     formatter : (value : string | number)=>{
                                         if(value){
                                             if(!isNaN(Number(value))) value = Number(value);
-                                            return controller.formatDate(value)
+                                            return controller.formatDate(value);
                                         }
                                     }
                                 }

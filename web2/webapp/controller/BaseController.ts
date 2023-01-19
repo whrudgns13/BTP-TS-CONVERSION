@@ -8,6 +8,7 @@ import Router from "sap/ui/core/routing/Router";
 import History from "sap/ui/core/routing/History";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import { LayoutType } from "sap/f/library";
+import MessageBox from "sap/m/MessageBox";
 
 /**
  * @namespace com.myorg.userInformation.controller
@@ -89,4 +90,15 @@ export default abstract class BaseController extends Controller {
         return `${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`
     }
 
+	showWarningBox(message : string) {
+		return new Promise<boolean>((resolve, reject) => {
+			MessageBox.alert(message, {
+				actions: ["OK", "CANCEL"],
+				emphasizedAction: "OK",
+				onClose: function (sAction : string ) {
+					sAction === "OK" ? resolve(true) : resolve(false);
+				}
+			});
+		});
+	}
 }

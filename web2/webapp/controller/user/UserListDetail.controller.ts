@@ -1,8 +1,7 @@
 
 import { LayoutType } from "sap/f/library";
 import Table from "sap/m/Table";
-import Event from "sap/ui/base/Event";
-import BaseController from "../BaseController";
+import Event from "sap/ui/base/Event";;
 import { routerArguments } from "../../type/User";
 import { ScimUser } from "webapp/type/scim-user";
 import Filter from "sap/ui/model/Filter";
@@ -14,9 +13,9 @@ import { RoleCollection } from "webapp/type";
 import { Group } from "webapp/type/group";
 import Column from "sap/m/Column";
 import StandardListItem from "sap/m/StandardListItem";
-import Message from "sap/ui/core/Message";
 import MessageToast from "sap/m/MessageToast";
 import UserOverView from "./UserOverView.controller";
+import Button from "sap/m/Button";
 
 /**
  * @namespace com.myorg.userInformation.controller.user
@@ -51,21 +50,54 @@ export default class UserListDetail extends UserOverView {
         const user = users.find(user=>user.id===userId);
         componentModel.setProperty("/user",user);
     }
+
     changeLayout(layout : LayoutType){
         this.navTo("list",{layout});
     }
-
+    
     onSearchRoleCollection(e: Event) {
         const value : string = e.getParameter("query");
         const table = this.getView().byId("roleTable") as Table;
         const filters : Filter[] = [];
         if(value) filters.push(new Filter("value","Contains",value));
-    
+        
         const filter = new Filter({filters});
         
         (table.getBinding("items") as JSONListBinding).filter(filter);
     }
 
+    async onDeleteUserRoleCollection(event : Event){
+        const view = this.getView();
+        const control = event.getSource() as Button;
+        const context = control.getBindingContext("ComponentModel");
+        const componentModel = this.getComponentModel();
+        const collection : Group = context.getModel().getProperty(context.getPath());
+        const user : ScimUser = componentModel.getProperty("/user");
+        const check : boolean = await this.showWarningBox("정말 삭제하시겠습니까?");
+        if(!check) return;
+        
+        const response = await fetch("/app/group",{
+            method : "DELETE",
+            headers : {
+                "X-CSRF-Token" : componentModel.getProperty("/csrfToken"),
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify({
+                groupId : collection.value,
+                userId : user.id
+            })
+        })
+        
+        if(response.ok){
+            MessageToast.show("Role Collection 삭제 완료");
+            await this.getUsers();
+            this.setUser();
+        }
+
+        view.setBusy(false);
+        
+    }
+    
     onOpenCollectionDialog(){
         this.setUserCollections();
         if(!this._collectionDialog){
@@ -117,8 +149,12 @@ export default class UserListDetail extends UserOverView {
     
     onCollectionSearch(event : Event){
         const value : string = event.getParameter("value");
-        const binding : string = event.getParameter("itemsBinding");
-        console.log(value,binding);
+        const binding : JSONListBinding = event.getParameter("itemsBinding");
+        const filters = [];
+        if(value){
+            filters.push(new Filter("name","Contains",value));
+        }
+        binding.filter(filters);
     }
     
     onAddCollection(event : Event){
@@ -126,33 +162,34 @@ export default class UserListDetail extends UserOverView {
         const _self = this;
         const view = this.getView();
         view.setBusy(true);
+
         if(selectedItems.length){
             const componentModel = this.getComponentModel();
-            selectedItems.forEach(item=>{
+            
+            selectedItems.forEach(async (item)=>{
                 const bindingContext = item.getBindingContext("ComponentModel")
                 const model = bindingContext.getModel();
                 const path = bindingContext.getPath();
                 const collection : RoleCollection = model.getProperty(path);
                 
-                fetch("/app/group",{
+                const response = await fetch("/app/group",{
                     method : "POST",
                     body : JSON.stringify(this.createGroupObject(collection)),
                     headers : {
                         "X-CSRF-Token" : componentModel.getProperty("/csrfToken"),
                         "Content-Type": "application/json",
                     }
-                }).then(async (res)=>{
-                    if(res.ok){
-                        MessageToast.show("Role Collection 추가 완료");
-                        await _self.getUsers();
-                        _self.setUser();
-                        view.setBusy(false);
-                    }
                 })
                 
+                if(response.ok){
+                    MessageToast.show("Role Collection 추가 완료");
+                    await _self.getUsers();
+                    _self.setUser();
+                }
             })
         }
-        
+
+        view.setBusy(false);       
     }
     createGroupObject(collection : RoleCollection){
         const user : ScimUser = this.getComponentModel().getProperty("/user");

@@ -22,13 +22,4 @@ export default class Main extends BaseController {
         this.navTo(oItem.getKey());
 	}
 	
-	// getFCL() {
-	// 	return sap.ui.getCore().byId("fcl") as FlexibleColumnLayout;
-	// }
-
-	// changeLayout(layout : LayoutType){
-    //     const fcl = this.getFCL();
-	// 	if(fcl.getLayout()===LayoutType.MidColumnFullScreen) return fcl.setLayout(LayoutType.TwoColumnsBeginExpanded);
-    //     fcl.setLayout(layout);
-    // }
 }
