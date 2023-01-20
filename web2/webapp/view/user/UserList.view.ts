@@ -20,8 +20,8 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
         return "com.myorg.userInformation.controller.user.UserList";
     },
     createContent : function(controller : UserListController){
-       
         const _self = this as JSView;
+        
         const page = new DynamicPage({
             title : new DynamicPageTitle({
                 expandedHeading : new HBox({

@@ -16,7 +16,7 @@ sap.ui.jsview("com.myorg.userInformation.view.Main",{
     },
     createContent : function(Controller : MainController){
         const _self = this as JSView;
-        
+        _self.setDisplayBlock(true);
         const toolPage = new ToolPage(_self.createId("toolpage"),{
             header : new ToolHeader({
                 content : [

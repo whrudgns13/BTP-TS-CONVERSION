@@ -42,7 +42,12 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                     new Button({
                         icon : "sap-icon://full-screen",
                         press : function(){
-                            controller.changeLayout(LayoutType.MidColumnFullScreen)
+                            const layout : LayoutType = _self.getModel().getProperty("/users/layout");
+                            if(layout===LayoutType.MidColumnFullScreen){
+                                controller.changeLayout(LayoutType.TwoColumnsBeginExpanded);
+                                return;
+                            }
+                            controller.changeLayout(LayoutType.MidColumnFullScreen);
                         }
                     }),
                     new Button({

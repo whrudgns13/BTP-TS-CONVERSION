@@ -51,9 +51,8 @@ export default class UserList extends UserOverView {
         const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ComponentModel").getPath();
         this.navTo("list",{
             userId : this.getComponentModel().getProperty(path+"/id"),
-            layout : LayoutType.TwoColumnsMidExpanded
+            layout : LayoutType.TwoColumnsBeginExpanded
         });
-       // this.setLayout("/users/layout",LayoutType.TwoColumnsMidExpanded)
     }
 }
 
