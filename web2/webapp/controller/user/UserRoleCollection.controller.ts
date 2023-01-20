@@ -1,8 +1,9 @@
 import UserOverViewController from "./UserOverView.controller";
 import Event from "sap/ui/base/Event";
-import JSView from "sap/ui/core/mvc/JSView";
-import ToolPage from "sap/tnt/ToolPage";
 import { routerArguments } from "webapp/type/User";
+import Filter from "sap/ui/model/Filter";
+import Table from "sap/m/Table";
+import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 
 /**
  * @namespace com.myorg.userInformation.controller
@@ -19,5 +20,16 @@ export default class UserRoleCollection extends UserOverViewController {
             const componentModel = this.getComponentModel();
             componentModel.setProperty("/user/collection",collection);
         }
+    }
+
+    onCollectionSearch(e : Event){
+        const value = e.getParameter("query");
+        const table = this.getView().byId("collectionTable") as Table;
+        const binding = table.getBinding("items") as JSONListBinding;
+        const filters = [];
+        if(value){
+            filters.push(new Filter("name","Contains",value));
+        }
+        binding.filter(filters);
     }
 }

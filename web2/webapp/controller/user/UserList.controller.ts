@@ -52,7 +52,7 @@ export default class UserList extends UserOverView {
         const listItem = e.getParameter("listItem") as ColumnListItem;
         const model = listItem.getBindingContext("ComponentModel").getModel();
         const path = listItem.getBindingContext("ComponentModel").getPath();
-        //const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ComponentModel").getPath();
+        
         this.navTo("list",{
             userId : model.getProperty(path+"/id"),
             layout : LayoutType.TwoColumnsBeginExpanded

@@ -11,6 +11,7 @@ import Text from "sap/m/Text";
 import Title from "sap/m/Title";
 import ToolbarSpacer from "sap/m/ToolbarSpacer";
 import VBox from "sap/m/VBox";
+import Event from "sap/ui/base/Event";
 import JSView from "sap/ui/core/mvc/JSView";
 import ObjectPageDynamicHeaderTitle from "sap/uxap/ObjectPageDynamicHeaderTitle";
 import ObjectPageLayout from "sap/uxap/ObjectPageLayout";
@@ -66,13 +67,16 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserRoleCollection",{
                 subSections : new ObjectPageSubSection({
                     title : "역활",
                     blocks : [
-                        new Table({
+                        new Table(_self.createId("collectionTable"),{
                             headerToolbar : new OverflowToolbar({
                                 content : [
                                     new ToolbarSpacer(),
                                     new SearchField({
                                         value : "",
                                         width : "20rem",
+                                        search : function(e : Event){
+                                            controller.onCollectionSearch(e);
+                                        }
                                     })
                                 ]
                             }),
