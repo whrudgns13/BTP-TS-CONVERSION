@@ -52,9 +52,7 @@ export default class UserListDetail extends UserOverView {
         componentModel.setProperty("/user",user);
     }
 
-    changeLayout(layout : LayoutType){
-        this.navTo("list",{layout});
-    }
+    
     
     onSearchRoleCollection(e: Event) {
         const value : string = e.getParameter("query");

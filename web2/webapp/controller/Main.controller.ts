@@ -12,14 +12,16 @@ import ToolPage from "sap/tnt/ToolPage";
  */
 export default class Main extends BaseController {
     onExpendedMenu() {
-		const oView = this.getView() as JSView;
-        const toolpage = oView.byId("toolpage") as ToolPage;
-        const expended = toolpage.getSideExpanded();
-		toolpage.setSideExpanded(!expended);
+		  const oView = this.getView() as JSView;
+      const toolpage = oView.byId("toolpage") as ToolPage;
+      const expended = toolpage.getSideExpanded();
+		  toolpage.setSideExpanded(!expended);
     }
     onItemSeleted(event : Event) {
-		let oItem = event.getParameter("item");
-        this.navTo(oItem.getKey());
+      let oItem = event.getParameter("item");
+      this.navTo(oItem.getKey(),{
+        layout : LayoutType.OneColumn
+      });
 	}
 	
 }

@@ -90,6 +90,20 @@
 						"userListDetail",
 						"userRoleCollection"
 					]
+				},
+				{
+					"pattern": "collections",
+					"name": "collections",
+					"target": [
+						"collections"
+					]
+				},
+				{
+					"pattern" : "collections/:?layout:",
+					"name" : "collectionsList",
+					"target" : [
+						"collectionsList"
+					]
 				}
 			],
 			"targets": {
@@ -121,6 +135,19 @@
 					"parent" : "user",
 					"viewId": "UserRoleCollection",
 					"viewName": "UserRoleCollection"
+				},
+				"collections" : {
+					"viewPath" : "com.myorg.userInformation.view.collections",
+					"viewId": "CollectionOverView",
+					"viewName": "CollectionOverView"
+				},
+				"collectionsList" : {
+					"viewPath" : "com.myorg.userInformation.view.collections",
+					"controlId" : "fcl",
+					"parent" : "collections",
+					"controlAggregation" : "beginColumnPages",
+					"viewId": "CollectionsList",
+					"viewName": "CollectionsList"
 				}
 			
 			}

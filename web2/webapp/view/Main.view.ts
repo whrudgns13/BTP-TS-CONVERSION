@@ -38,6 +38,7 @@ sap.ui.jsview("com.myorg.userInformation.view.Main",{
                     items : [
                         new NavigationListItem({text : "Main",icon : "sap-icon://tree"}),
                         new NavigationListItem({text : "User" , key : "user", icon: "sap-icon://employee"}),
+                        new NavigationListItem({text : "Role Collections" , key : "collections", icon: "sap-icon://role"}),
                     ]
                 })
             }),

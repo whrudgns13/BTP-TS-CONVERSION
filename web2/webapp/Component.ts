@@ -23,6 +23,9 @@ export default class Component extends UIComponent {
 		this.setModel(new JSONModel({
 			users : {
 				layout : LayoutType.OneColumn
+			},
+			collections : {
+				layout : LayoutType.OneColumn
 			}
 		}));
 		this.setModel(new JSONModel(),"ComponentModel");
