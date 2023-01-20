@@ -99,7 +99,7 @@
 					]
 				},
 				{
-					"pattern" : "collections/:?layout:",
+					"pattern" : "collections/{layout}",
 					"name" : "collectionsList",
 					"target" : [
 						"collectionsList"

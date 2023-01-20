@@ -17,7 +17,7 @@ export default class Main extends BaseController {
       const expended = toolpage.getSideExpanded();
 		  toolpage.setSideExpanded(!expended);
     }
-    onItemSeleted(event : Event) {
+    onItemSeleted(event : Event) {w
       let oItem = event.getParameter("item");
       this.navTo(oItem.getKey(),{
         layout : LayoutType.OneColumn
