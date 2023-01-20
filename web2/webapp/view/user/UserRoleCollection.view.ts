@@ -40,11 +40,12 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserRoleCollection",{
                     new Button({
                         icon : "sap-icon://full-screen",
                         press : function(){
-                            const layout = _self.getProperty("/user/layout");
-                            if(layout===LayoutType.ThreeColumnsMidExpanded){
-                                controller.changeLayout(LayoutType.TwoColumnsBeginExpanded);
+                            const layout = _self.getModel().getProperty("/users/layout");
+                            if(layout===LayoutType.EndColumnFullScreen){
+                                controller.changeLayout(LayoutType.ThreeColumnsMidExpanded);
+                                return;
                             }
-                            controller.changeLayout(LayoutType.ThreeColumnsEndExpanded);
+                            controller.changeLayout(LayoutType.EndColumnFullScreen);
                         }
                     }),
                     new Button({

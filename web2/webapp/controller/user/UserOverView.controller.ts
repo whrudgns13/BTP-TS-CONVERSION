@@ -64,7 +64,12 @@ export default class UserOverView extends BaseController {
 	}
 
 	changeLayout(layout : LayoutType){
-        this.navTo("list",{layout});
+		const componentModel = this.getComponentModel();
+		this.navTo("list",{
+			layout,
+			userId : componentModel.getProperty("/user/id"),
+			collection : componentModel.getProperty("/user/collection")?.name
+		});
     }
 
 }
