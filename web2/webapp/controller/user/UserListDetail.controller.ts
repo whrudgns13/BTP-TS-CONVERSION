@@ -16,6 +16,7 @@ import StandardListItem from "sap/m/StandardListItem";
 import MessageToast from "sap/m/MessageToast";
 import UserOverView from "./UserOverView.controller";
 import Button from "sap/m/Button";
+import ListItemBase from "sap/m/ListItemBase";
 
 /**
  * @namespace com.myorg.userInformation.controller.user
@@ -202,6 +203,15 @@ export default class UserListDetail extends UserOverView {
             }
         }
     }
+    onOpenCollection(e: Event) {
+        const listItem = e.getParameter("listItem") as ColumnListItem;
+        const model = listItem.getBindingContext("ComponentModel").getModel();
+        const path = listItem.getBindingContext("ComponentModel").getPath();
+        this.navTo("list",{
+            userId : model.getProperty("/user/id"),
+            layout : LayoutType.ThreeColumnsMidExpanded,
+            collection : model.getProperty(path+"/value")
+        })
+    }
     
 }
-

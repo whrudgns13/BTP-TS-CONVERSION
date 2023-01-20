@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Req, Res } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { RoleCollectionService } from './role-collection.service';
 
 @Controller('role-collection')
@@ -8,6 +8,11 @@ export class RoleCollectionController {
     @Get()
     getRoleCollections(@Req() req, @Res() res) {
         return this.roleColleactionService.getRoleCollections(req, res);
+    }
+    
+    @Get(":roleCollectionName")
+    getRoleCollection(@Param("roleCollectionName") roleCollectionName : string, @Res() res) {
+        return this.roleColleactionService.getRoleCollection(roleCollectionName, res);
     }
 
     @Put()

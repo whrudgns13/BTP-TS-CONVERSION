@@ -1,4 +1,5 @@
 export interface routerArguments { 
 	layout? : string,
-    userId? : string
+    userId? : string,
+    collection? : string
 }

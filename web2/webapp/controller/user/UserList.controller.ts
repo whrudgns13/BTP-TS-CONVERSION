@@ -1,5 +1,6 @@
 
 import { LayoutType } from "sap/f/library";
+import ColumnListItem from "sap/m/ColumnListItem";
 import Table from "sap/m/Table";
 import Event from "sap/ui/base/Event";
 import Filter from "sap/ui/model/Filter";
@@ -48,9 +49,12 @@ export default class UserList extends UserOverView {
         (table.getBinding("items") as JSONListBinding).filter(filter);
     }
     onOpenDetail(e : Event) {
-        const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ComponentModel").getPath();
+        const listItem = e.getParameter("listItem") as ColumnListItem;
+        const model = listItem.getBindingContext("ComponentModel").getModel();
+        const path = listItem.getBindingContext("ComponentModel").getPath();
+        //const path = sap.ui.getCore().byId(e.getParameter("id")).getBindingContext("ComponentModel").getPath();
         this.navTo("list",{
-            userId : this.getComponentModel().getProperty(path+"/id"),
+            userId : model.getProperty(path+"/id"),
             layout : LayoutType.TwoColumnsBeginExpanded
         });
     }

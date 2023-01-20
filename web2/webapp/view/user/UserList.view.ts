@@ -21,7 +21,6 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
     },
     createContent : function(controller : UserListController){
         const _self = this as JSView;
-        
         const page = new DynamicPage({
             title : new DynamicPageTitle({
                 expandedHeading : new HBox({
@@ -73,6 +72,9 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
                 ]
             }),
             content : new Table(_self.createId("userTable"),{
+                itemPress :  function(e : Event){
+                    controller.onOpenDetail(e);
+                },
                 columns : [
                     new Column({
                         header : new Text({text : "사용자이름"})
@@ -97,9 +99,6 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserList",{
                     path : "ComponentModel>/users/resources",
                     template : new ColumnListItem({
                         type : "Navigation",
-                        press : function(e : Event){
-                            controller.onOpenDetail(e);
-                        },
                         cells : [
                             new Text({text : "{ComponentModel>name/familyName} {ComponentModel>name/givenName}"}),
                             new Text({text : "{ComponentModel>name/familyName}"}),

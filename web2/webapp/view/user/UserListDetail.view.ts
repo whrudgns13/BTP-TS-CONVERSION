@@ -112,6 +112,9 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserListDetail",{
                     subSections : new ObjectPageSubSection({
                         blocks : [
                             new Table(_self.createId("roleTable"),{
+                                itemPress : function(e : Event){
+                                    controller.onOpenCollection(e)
+                                },
                                 headerToolbar : new OverflowToolbar({
                                     content : [
                                         new SearchField({

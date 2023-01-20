@@ -3,12 +3,20 @@ import { RoleCollectionsApi } from "../../AuthorizationAPI/role-collections-api"
 
 @Injectable()
 export class RoleCollectionService {
+  
   private destination = { destinationName: "apiAccessDestination" };
 
   async getRoleCollections(@Req() req, @Res() res) {
     const collection = await RoleCollectionsApi.getRoleCollections({
       showUsers: true
     }).execute(this.destination);
+    return res.send(collection);
+  }
+
+  async getRoleCollection(roleCollectionName : string, res: any) {
+    const collection = await RoleCollectionsApi.getRoleCollectionByName(
+      roleCollectionName
+    ).execute(this.destination);
     return res.send(collection);
   }
 

@@ -1,3 +1,4 @@
+import { LayoutType } from "sap/f/library";
 import Button from "sap/m/Button";
 import Column from "sap/m/Column";
 import ColumnListItem from "sap/m/ColumnListItem";
@@ -10,6 +11,7 @@ import Text from "sap/m/Text";
 import Title from "sap/m/Title";
 import ToolbarSpacer from "sap/m/ToolbarSpacer";
 import VBox from "sap/m/VBox";
+import JSView from "sap/ui/core/mvc/JSView";
 import ObjectPageDynamicHeaderTitle from "sap/uxap/ObjectPageDynamicHeaderTitle";
 import ObjectPageLayout from "sap/uxap/ObjectPageLayout";
 import ObjectPageSection from "sap/uxap/ObjectPageSection";
@@ -21,29 +23,34 @@ sap.ui.jsview("com.myorg.userInformation.view.user.UserRoleCollection",{
         return "com.myorg.userInformation.controller.user.UserRoleCollection"
     },
     createContent : function(controller : UserRoleCollection){
+        const _self = this as JSView;
         const page = new ObjectPageLayout({
             headerTitle : new ObjectPageDynamicHeaderTitle({
                 expandedHeading : new HBox({
                     items : [
-                        new Title({text : "{ComponentModel>/user/collection}",titleStyle:"H3"})
+                        new Title({text : "{ComponentModel>/user/collection/name}",titleStyle:"H3"})
                     ]
                 }),
                 snappedHeading : new HBox({
                     items : [
-                        new Title({text : "{ComponentModel>/user/collection}",titleStyle:"H3"}),
+                        new Title({text : "{ComponentModel>/user/collection/name}",titleStyle:"H3"}),
                     ]
                 }),
                 actions : [
                     new Button({
                         icon : "sap-icon://full-screen",
                         press : function(){
-                      
+                            const layout = _self.getProperty("/user/layout");
+                            if(layout===LayoutType.ThreeColumnsMidExpanded){
+                                controller.changeLayout(LayoutType.TwoColumnsBeginExpanded);
+                            }
+                            controller.changeLayout(LayoutType.ThreeColumnsEndExpanded);
                         }
                     }),
                     new Button({
                         icon : "sap-icon://decline",
                         press : function(){
-                          
+                            controller.changeLayout(LayoutType.TwoColumnsBeginExpanded);
                         }
                     })
                 ]

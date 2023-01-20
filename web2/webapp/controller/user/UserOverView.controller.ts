@@ -63,4 +63,8 @@ export default class UserOverView extends BaseController {
 		console.log("stateChange");
 	}
 
+	changeLayout(layout : LayoutType){
+        this.navTo("list",{layout});
+    }
+
 }

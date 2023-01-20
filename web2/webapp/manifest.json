@@ -83,11 +83,12 @@
 					]
 				},
 				{
-					"pattern" : "list/{layout}/:userId:",
+					"pattern" : "list/{layout}/?:userId:/?:collection:",
 					"name" : "list",
 					"target" : [
 						"userList",
-						"userListDetail"
+						"userListDetail",
+						"userRoleCollection"
 					]
 				}
 			],
@@ -112,6 +113,14 @@
 					"parent" : "user",
 					"viewId": "UserListDetail",
 					"viewName": "UserListDetail"
+				},
+				"userRoleCollection" : {
+					"viewPath" : "com.myorg.userInformation.view.user",
+					"controlId" : "fcl",
+					"controlAggregation" : "endColumnPages",
+					"parent" : "user",
+					"viewId": "UserRoleCollection",
+					"viewName": "UserRoleCollection"
 				}
 			
 			}
